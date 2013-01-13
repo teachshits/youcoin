@@ -38,3 +38,4 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'uuidtools' 
+gem 'ancestry', :git => 'git://github.com/mgerasim/ancestry.git'

@@ -14,11 +14,11 @@
 ActiveRecord::Schema.define(:version => 20130110120401) do
 
   create_table "categories", :id => false, :force => true do |t|
-    t.string   "uuid",               :limit => 36
-    t.string   "name",                             :null => false
-    t.integer  "category_parent_id"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.string   "uuid",       :limit => 36
+    t.string   "name",                     :null => false
+    t.string   "ancestry"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   create_table "payments", :id => false, :force => true do |t|

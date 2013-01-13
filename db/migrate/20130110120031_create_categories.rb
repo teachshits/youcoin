@@ -3,7 +3,7 @@ class CreateCategories < ActiveRecord::Migration
     create_table :categories, :id => false do |t|
       t.string :uuid, :limit => 36, :primary => true
       t.string :name, :null => false
-      t.belongs_to :category_parent
+      t.string :ancestry
 
       t.timestamps
     end
