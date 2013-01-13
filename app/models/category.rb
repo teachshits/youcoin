@@ -1,6 +1,6 @@
 class Category < ActiveRecord::Base
   include Extensions::UUID
-  attr_accessible :name, :ancestry
+  attr_accessible :name, :parent , :ancestry, :parent_id
   has_many :payments
   
 
