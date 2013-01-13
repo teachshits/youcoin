@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110120401) do
+ActiveRecord::Schema.define(:version => 20130111121505) do
 
   create_table "categories", :id => false, :force => true do |t|
-    t.string   "uuid",       :limit => 36
-    t.string   "name",                     :null => false
+    t.string   "uuid",           :limit => 36
+    t.string   "name",                                        :null => false
     t.string   "ancestry"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.integer  "ancestry_depth",               :default => 0
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
   end
 
   create_table "payments", :id => false, :force => true do |t|

@@ -4,18 +4,9 @@ class Category < ActiveRecord::Base
   has_many :payments
   
 
-  has_ancestry
+  has_ancestry :cache_depth => true
+  #:primary_key_format =>'([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})'
 
-attr_accessor :skip_after_save
 
-
-  after_save :update_ancestry
-
-def update_ancestry
-return false if self.skip_after_save
- parent = Category.find_by_uuid(self.ancestry)
- self.update_attribute(:ancestry , '#{parent.ancestry}/#{parent}' )
- self.skip_after_save = true
-end
 
 end
