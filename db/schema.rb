@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(:version => 20130111121505) do
 
+  create_table "cashes", :id => false, :force => true do |t|
+    t.string   "uuid",       :limit => 36
+    t.string   "name"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
   create_table "categories", :id => false, :force => true do |t|
     t.string   "uuid",           :limit => 36
     t.string   "name",                                        :null => false
@@ -26,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20130111121505) do
     t.decimal  "summa",                     :null => false
     t.string   "uuid",        :limit => 36
     t.integer  "category_id"
+    t.integer  "cash_id"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end

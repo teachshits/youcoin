@@ -1,5 +1,7 @@
 Youcoin::Application.routes.draw do
 
+  resources :cashes
+
   resources :payments
 
   resources :categories

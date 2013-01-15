@@ -4,6 +4,7 @@ class CreatePayments < ActiveRecord::Migration
       t.decimal :summa, :null => false
       t.string :uuid, :limit => 36, :primary => true
       t.references :category
+      t.references :cash
 
       t.timestamps
     end
