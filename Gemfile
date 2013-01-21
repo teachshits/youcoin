@@ -20,6 +20,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'execjs'
+
+gem 'therubyracer'
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
@@ -38,4 +41,5 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'uuidtools' 
-gem 'ancestry', :git => 'git://github.com/mgerasim/ancestry.git'
+gem 'ancestry', :git => 'https://github.com/mgerasim/ancestry.git'
+gem 'cocoon'

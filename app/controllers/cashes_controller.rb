@@ -13,10 +13,20 @@ class CashesController < ApplicationController
   # GET /cashes/1
   # GET /cashes/1.json
   def show
+    collection_for_parent_select;
+    
     @cash = Cash.find(params[:id])
+    
+    if (@cash && params[:summa] != nil) then
+	payment = Payment.new;
+	payment.summa = params[:summa];
+	
+	@cash.payments << payment
+    end
 
     respond_to do |format|
       format.html # show.html.erb
+      format.js
       format.json { render json: @cash }
     end
   end
@@ -25,6 +35,7 @@ class CashesController < ApplicationController
   # GET /cashes/new.json
   def new
     @cash = Cash.new
+    @cash.payments.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -80,4 +91,22 @@ class CashesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+before_filter :collection_for_parent_select, :except => [:show]
+
+  def collection_for_parent_select
+    @categories = ancestry_options(Category.unscoped.arrange(:order => 'name')) {|i| "#{'-' * i.depth} #{i.name}" }
+  end
+
+  def ancestry_options(items)
+    result = []
+    items.map do |item, sub_items|
+      result << [yield(item), item.id]
+      #this is a recursive call:
+      result += ancestry_options(sub_items) {|i| "#{'-' * i.depth} #{i.name}" }
+    end
+    result
+  end
+
+  
 end

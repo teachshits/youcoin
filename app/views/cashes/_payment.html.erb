@@ -1,0 +1,13 @@
+<%= form_tag @cash, :method => :get, :remote => true   do %>
+
+ <div class="field">
+    Категория:
+    <%= select_tag :category_id, options_for_select(@categories)  %>
+    Сумма:
+    <%= text_field_tag :summa %>
+ </div>
+ 
+ <div class="actions">
+    <%= submit_tag "Добавить"  %>
+  </div>
+<% end %>
