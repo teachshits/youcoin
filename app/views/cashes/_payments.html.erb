@@ -1,7 +1,15 @@
 Платежи:
-
+</br>
+<table>
+    <tr>
+	<th>Категория</th>
+	<th>Сумма</th>
+    </tr>
+    
 <% @cash.payments.each do |payment| %>
-
-    <%= payment.summa %>  </br>
-
+<tr>
+    <td><%= payment.category.name%></td>
+    <td><%= number_with_precision(payment.summa, :precision => 2) || 0 %>  </td>
+</tr>
 <% end %>
+</table>

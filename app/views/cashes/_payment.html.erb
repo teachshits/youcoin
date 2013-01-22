@@ -4,7 +4,7 @@
     Категория:
     <%= select_tag :category_id, options_for_select(@categories)  %>
     Сумма:
-    <%= text_field_tag :summa %>
+    <%= text_field_tag :summa, (number_with_precision(0, :precision => 2) || 0) %>
  </div>
  
  <div class="actions">

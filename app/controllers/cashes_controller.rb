@@ -20,7 +20,7 @@ class CashesController < ApplicationController
     if (@cash && params[:summa] != nil) then
 	payment = Payment.new;
 	payment.summa = params[:summa];
-	
+	payment.category_id = params[:category_id];
 	@cash.payments << payment
     end
 

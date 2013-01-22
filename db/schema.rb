@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(:version => 20130111121505) do
   create_table "payments", :id => false, :force => true do |t|
     t.decimal  "summa",                     :null => false
     t.string   "uuid",        :limit => 36
-    t.integer  "category_id"
-    t.integer  "cash_id"
+    t.string   "category_id"
+    t.string   "cash_id"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end

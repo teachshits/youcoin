@@ -80,4 +80,23 @@ class PaymentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  
+before_filter :collection_for_parent_select, :except => [:show]
+
+  def collection_for_parent_select
+    @categories = ancestry_options(Category.unscoped.arrange(:order => 'name')) {|i| "#{'-' * i.depth} #{i.name}" }
+  end
+
+  def ancestry_options(items)
+    result = []
+    items.map do |item, sub_items|
+      result << [yield(item), item.id]
+      #this is a recursive call:
+      result += ancestry_options(sub_items) {|i| "#{'-' * i.depth} #{i.name}" }
+    end
+    result
+  end
+
+  
 end
