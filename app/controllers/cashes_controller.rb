@@ -1,4 +1,7 @@
 class CashesController < ApplicationController
+
+  before_filter :authenticate_user!
+  
   # GET /cashes
   # GET /cashes.json
   def index

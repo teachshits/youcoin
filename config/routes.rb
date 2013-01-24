@@ -1,12 +1,14 @@
 Youcoin::Application.routes.draw do
 
+  devise_for :users
+
   resources :cashes
 
   resources :payments
 
   resources :categories
 
-  root :to => 'payments#index'
+  root :to => 'home#index'
   
   get "cashes/add_payment"
 
