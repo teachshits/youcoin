@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -43,7 +43,7 @@ gem 'jquery-rails'
 gem 'uuidtools' 
 gem 'ancestry', :git => 'https://github.com/mgerasim/ancestry.git'
 gem 'cocoon'
-gem 'devise'
+gem "devise", ">= 2.2.2"
 gem "cancan"
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS

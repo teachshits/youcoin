@@ -44,6 +44,7 @@ class CategoriesController < ApplicationController
   # POST /categories.json
   def create
     @category = Category.new(params[:category])
+    @category.user = current_user
 
     respond_to do |format|
       if @category.save
@@ -87,7 +88,7 @@ class CategoriesController < ApplicationController
 before_filter :collection_for_parent_select, :except => [:index, :show]
 
   def collection_for_parent_select
-    @categories = ancestry_options(Category.unscoped.arrange(:order => 'name')) {|i| "#{'-' * i.depth} #{i.name}" }
+    @categories = ancestry_options(Category.unscoped.arrange(:conditions => ["user_id = ?", current_user],:order => 'name')) {|i| "#{'-' * i.depth} #{i.name}" }
   end
 
   def ancestry_options(items)

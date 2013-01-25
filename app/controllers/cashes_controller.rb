@@ -5,7 +5,7 @@ class CashesController < ApplicationController
   # GET /cashes
   # GET /cashes.json
   def index
-    @cashes = Cash.all
+    @cashes = Cash.find(:all, :conditions => ["user_id = ?", current_user])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -55,7 +55,7 @@ class CashesController < ApplicationController
   # POST /cashes.json
   def create
     @cash = Cash.new(params[:cash])
-
+    @cash.user = current_user
     respond_to do |format|
       if @cash.save
         format.html { redirect_to @cash, notice: 'Cash was successfully created.' }
@@ -98,7 +98,7 @@ class CashesController < ApplicationController
 before_filter :collection_for_parent_select, :except => [:show]
 
   def collection_for_parent_select
-    @categories = ancestry_options(Category.unscoped.arrange(:order => 'name')) {|i| "#{'-' * i.depth} #{i.name}" }
+    @categories = ancestry_options(Category.unscoped.arrange(:conditions => ["user_id = ?", current_user],:order => 'name')) {|i| "#{'-' * i.depth} #{i.name}" }
   end
 
   def ancestry_options(items)

@@ -13,9 +13,19 @@
 
 ActiveRecord::Schema.define(:version => 20130111121505) do
 
+  create_table "basecategories", :id => false, :force => true do |t|
+    t.string   "uuid",           :limit => 36
+    t.string   "name",                                        :null => false
+    t.string   "ancestry"
+    t.integer  "ancestry_depth",               :default => 0
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+  end
+
   create_table "cashes", :id => false, :force => true do |t|
     t.string   "uuid",       :limit => 36
     t.string   "name"
+    t.integer  "user_id"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
   end
@@ -25,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20130111121505) do
     t.string   "name",                                        :null => false
     t.string   "ancestry"
     t.integer  "ancestry_depth",               :default => 0
+    t.integer  "user_id"
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
   end

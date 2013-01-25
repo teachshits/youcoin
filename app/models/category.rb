@@ -1,12 +1,8 @@
 class Category < ActiveRecord::Base
   include Extensions::UUID
-  attr_accessible :name, :parent , :ancestry, :parent_id
+  attr_accessible :name, :parent, :ancestry, :ancestry_depth, :parent_id
   has_many :payments
-  
-
   has_ancestry :cache_depth => true
-  #:primary_key_format =>'([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})'
-
-
+  belongs_to :user
 
 end
