@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130111121505) do
+ActiveRecord::Schema.define(:version => 20130128013830) do
 
   create_table "basecategories", :id => false, :force => true do |t|
     t.string   "uuid",           :limit => 36
@@ -49,6 +49,11 @@ ActiveRecord::Schema.define(:version => 20130111121505) do
     t.datetime "updated_at",                :null => false
   end
 
+  create_table "payments_tags", :force => true do |t|
+    t.string "tag_id"
+    t.string "payment_id"
+  end
+
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "resource_id"
@@ -59,6 +64,14 @@ ActiveRecord::Schema.define(:version => 20130111121505) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "tags", :id => false, :force => true do |t|
+    t.string   "uuid",       :limit => 36
+    t.string   "name",                     :null => false
+    t.integer  "user_id"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

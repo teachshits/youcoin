@@ -1,3 +1,4 @@
+#encoding: utf-8
 class User < ActiveRecord::Base
   rolify
   # Include default devise modules. Others available are:
@@ -13,6 +14,29 @@ class User < ActiveRecord::Base
   has_many :categories
   
   after_create :record_category
+  
+  class << self
+    def current_user=(user)
+	Thread.current[:current_user] = user
+    end
+
+    def current_user
+	Thread.current[:current_user]
+    end
+  end
+  
+  HUMAN_ATTRIBUTE_NAMES = {
+    :name => 'Имя',
+    :email => 'Электронный адрес',
+    :password => 'Пароль',
+    :password_confirmation => "Подтверждение пароля",
+    :remember_me => "Запомнить меня"
+  }
+  class << self
+    def human_attribute_name attribute_name
+	HUMAN_ATTRIBUTE_NAMES[attribute_name.to_sym] || super
+    end
+  end
   
   def record_category
     log =  Rails.logger

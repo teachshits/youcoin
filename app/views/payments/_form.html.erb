@@ -19,6 +19,15 @@
     <%= f.label :category %><br />
     <%= f.select :category_id, @categories %>
   </div>
+  
+  <h2>Тэги</h2>
+    <% for tag in Tag.find(:all) %>
+    <div>
+    <%= check_box_tag "payment[tag_ids][]", tag.id, @payment.tags.include?(tag)%>
+    <%= tag.name%>
+    </div>
+  <% end %>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

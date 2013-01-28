@@ -4,5 +4,12 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_path, :alert => exception.message
   end
-
+  
+  
+  before_filter :set_current_user
+  
+  def set_current_user
+    User.current_user = current_user
+  end
+  
 end

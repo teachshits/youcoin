@@ -7,6 +7,15 @@
     <%= text_field_tag :summa, (number_with_precision(0, :precision => 2) || 0) %>
  </div>
  
+ <h2>Тэги</h2>
+    <% for tag in Tag.find(:all) %>
+    <div>
+    <%= check_box_tag "payment[tag_ids][]", tag.id %>
+    <%= tag.name%>
+    </div>
+ <% end %>
+
+ 
  <div class="actions">
     <%= submit_tag "Добавить"  %>
   </div>
