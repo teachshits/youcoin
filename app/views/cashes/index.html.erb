@@ -1,8 +1,9 @@
-<h1>Listing cashes</h1>
+<h1>Наличные</h1>
 
 <table>
   <tr>
     <th><%= Cash.human_attribute_name(:name) %></th>
+    <th><%= Cash.human_attribute_name(:balance) %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,9 +12,10 @@
 <% @cashes.each do |cash| %>
   <tr>
     <td><%= cash.name %></td>
-    <td><%= link_to 'Show', cash %></td>
-    <td><%= link_to 'Edit', edit_cash_path(cash) %></td>
-    <td><%= link_to 'Destroy', cash, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= number_with_precision(cash.balance, :precision => 2) || 0 %></td>
+    <td><%= link_to 'Показать', cash %></td>
+    <td><%= link_to 'Редактировать', edit_cash_path(cash) %></td>
+    <td><%= link_to 'Удалить', cash, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>

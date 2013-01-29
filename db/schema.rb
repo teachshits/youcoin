@@ -24,7 +24,8 @@ ActiveRecord::Schema.define(:version => 20130128013830) do
 
   create_table "cashes", :id => false, :force => true do |t|
     t.string   "uuid",       :limit => 36
-    t.string   "name"
+    t.string   "name",                     :null => false
+    t.decimal  "balance",                  :null => false
     t.integer  "user_id"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
@@ -40,19 +41,25 @@ ActiveRecord::Schema.define(:version => 20130128013830) do
     t.datetime "updated_at",                                  :null => false
   end
 
+  add_index "categories", ["ancestry"], :name => "index_categories_on_ancestry"
+
   create_table "payments", :id => false, :force => true do |t|
     t.decimal  "summa",                     :null => false
     t.string   "uuid",        :limit => 36
-    t.string   "category_id"
-    t.string   "cash_id"
+    t.string   "category_id",               :null => false
+    t.string   "cash_id",                   :null => false
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end
+
+  add_index "payments", ["category_id", "cash_id"], :name => "index_payments_on_category_id_and_cash_id"
 
   create_table "payments_tags", :force => true do |t|
     t.string "tag_id"
     t.string "payment_id"
   end
+
+  add_index "payments_tags", ["tag_id", "payment_id"], :name => "index_payments_tags_on_tag_id_and_payment_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"

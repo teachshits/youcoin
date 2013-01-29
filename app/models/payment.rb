@@ -18,5 +18,12 @@ class Payment < ActiveRecord::Base
     end
   end
 
+  before_save :change_balance
+  
+  private
+  def change_balance
+    self.cash.balance = self.cash.balance - self.summa
+    self.cash.save!
+  end
   
 end

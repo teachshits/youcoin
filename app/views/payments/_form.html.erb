@@ -15,9 +15,15 @@
     <%= f.label :summa %><br />
     <%= f.text_field :summa %>
   </div>
+
   <div class="field">
     <%= f.label :category %><br />
     <%= f.select :category_id, @categories %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cash %><br />
+    <%= f.select :cash_id, Cash.all.map { |u| [u.name, u.id] } %>
   </div>
   
   <h2>Тэги</h2>

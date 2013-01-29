@@ -8,5 +8,7 @@ class CreateCategories < ActiveRecord::Migration
       t.references :user
       t.timestamps
     end
+    
+    add_index :categories, [:ancestry]
   end
 end

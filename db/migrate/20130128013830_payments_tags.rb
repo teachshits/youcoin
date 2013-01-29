@@ -4,5 +4,7 @@ class PaymentsTags < ActiveRecord::Migration
 	    t.string :tag_id
 	    t.string :payment_id
 	end
+	
+	add_index :payments_tags, [:tag_id, :payment_id]
     end
 end

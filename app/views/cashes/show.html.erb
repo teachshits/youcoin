@@ -1,8 +1,12 @@
-<p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
+  <b><%= Cash.human_attribute_name(:name) %>:</b>
   <%= @cash.name %>
+</p>
+
+<p>
+  <b><%= Cash.human_attribute_name(:balance) %>:</b>
+  <%= @cash.balance %>
 </p>
 
 <%= render("payment", :locals => {:values => @categories}) %>
@@ -13,5 +17,5 @@
 
 </div>
 
-<%= link_to 'Edit', edit_cash_path(@cash) %> |
-<%= link_to 'Back', cashes_path %>
+<%= link_to 'Редактировать', edit_cash_path(@cash) %> |
+<%= link_to 'Назад', cashes_path %>
