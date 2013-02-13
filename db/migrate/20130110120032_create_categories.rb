@@ -11,7 +11,7 @@ class CreateCategories < ActiveRecord::Migration
       # come - поле, направление перевода
       # true - Расход - Положить на счёт
       # false - Доход - Изьять со счёта
-      t.boolean	:come, :default => ActiveRecord::Base.connection.quoted_false
+      t.boolean	:come, :default => false
       
       t.timestamps
     end
