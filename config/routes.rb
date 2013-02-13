@@ -8,12 +8,24 @@ Youcoin::Application.routes.draw do
   resources :cashes
 
   resources :payments
+  
+  resource :transfer
 
   resources :categories
 
   root :to => 'home#index'
   
   get "cashes/add_payment"
+  
+  post "cashes/add_transfer"
+  
+  post "cashes/balance_edit"
+  
+  resources :cashes do
+      member do
+       post 'add_transfer'
+      end
+end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

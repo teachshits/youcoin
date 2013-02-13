@@ -1,0 +1,11 @@
+<%= form_tag(  { :action => :balance_edit, :id => @cash }, :remote => true )  do %>
+
+Новое значение баланса:
+    <%= text_field_tag :balance_edit, (number_with_precision(@cash.balance, :precision => 2) || 0) %>
+    
+    
+<div class="actions">
+    <%= submit_tag "Изменить" %>
+  </div>
+  
+<% end %>

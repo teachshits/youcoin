@@ -17,6 +17,12 @@ class Payment < ActiveRecord::Base
 	HUMAN_ATTRIBUTE_NAMES[attribute_name.to_sym] || super
     end
   end
+  
+  default_scope order("created_at DESC")
+  
+  def name
+    "#{self.category.name}"
+  end
 
   before_save :change_balance
   

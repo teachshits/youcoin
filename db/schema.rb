@@ -15,11 +15,12 @@ ActiveRecord::Schema.define(:version => 20130128013830) do
 
   create_table "basecategories", :id => false, :force => true do |t|
     t.string   "uuid",           :limit => 36
-    t.string   "name",                                        :null => false
+    t.string   "name",                                            :null => false
     t.string   "ancestry"
     t.integer  "ancestry_depth",               :default => 0
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.boolean  "come",                         :default => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
   end
 
   create_table "cashes", :id => false, :force => true do |t|
@@ -33,26 +34,32 @@ ActiveRecord::Schema.define(:version => 20130128013830) do
 
   create_table "categories", :id => false, :force => true do |t|
     t.string   "uuid",           :limit => 36
-    t.string   "name",                                        :null => false
+    t.string   "name",                                            :null => false
     t.string   "ancestry"
     t.integer  "ancestry_depth",               :default => 0
     t.integer  "user_id"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.boolean  "come",                         :default => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
   end
 
   add_index "categories", ["ancestry"], :name => "index_categories_on_ancestry"
 
   create_table "payments", :id => false, :force => true do |t|
-    t.decimal  "summa",                     :null => false
-    t.string   "uuid",        :limit => 36
-    t.string   "category_id",               :null => false
-    t.string   "cash_id",                   :null => false
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.decimal  "summa",                          :precision => 11, :scale => 2, :null => false
+    t.string   "uuid",             :limit => 36
+    t.string   "category_id",                                                   :null => false
+    t.string   "cash_id",                                                       :null => false
+    t.text     "description"
+    t.string   "transfer_cash_id"
+    t.string   "type"
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
   end
 
-  add_index "payments", ["category_id", "cash_id"], :name => "index_payments_on_category_id_and_cash_id"
+  add_index "payments", ["cash_id"], :name => "index_payments_on_cash_id"
+  add_index "payments", ["category_id"], :name => "index_payments_on_category_id"
+  add_index "payments", ["transfer_cash_id"], :name => "index_payments_on_transfer_cash_id"
 
   create_table "payments_tags", :force => true do |t|
     t.string "tag_id"

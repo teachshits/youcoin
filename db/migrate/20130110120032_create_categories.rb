@@ -1,3 +1,4 @@
+#encoding: utf-8
 class CreateCategories < ActiveRecord::Migration
   def change
     create_table :categories, :id => false do |t|
@@ -5,7 +6,13 @@ class CreateCategories < ActiveRecord::Migration
       t.string :name, :null => false
       t.string :ancestry
       t.integer :ancestry_depth, :default => 0
-      t.references :user
+      t.integer :user_id, :default => nil
+      
+      # come - поле, направление перевода
+      # true - Расход - Положить на счёт
+      # false - Доход - Изьять со счёта
+      t.boolean	:come, :default => ActiveRecord::Base.connection.quoted_false
+      
       t.timestamps
     end
     

@@ -4,12 +4,14 @@
   <%= @cash.name %>
 </p>
 
-<p>
-  <b><%= Cash.human_attribute_name(:balance) %>:</b>
-  <%= @cash.balance %>
-</p>
+<div id="balance" >
+    <%= render 'balance' %>
+</div>
 
 <%= render("payment", :locals => {:values => @categories}) %>
+</br>
+<%= render("transfer") %>
+<%= render("balance_edit") %>
 
 <div id="payments">
 
@@ -19,3 +21,8 @@
 
 <%= link_to 'Редактировать', edit_cash_path(@cash) %> |
 <%= link_to 'Назад', cashes_path %>
+
+<script type="text/javascript">
+    $(".chzn-select").chosen();
+    $(".chzn-select-deselect").chosen({allow_single_deselect:true});
+</script>

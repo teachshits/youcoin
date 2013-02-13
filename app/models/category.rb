@@ -1,7 +1,7 @@
 #encoding: utf-8
 class Category < ActiveRecord::Base
   include Extensions::UUID
-  attr_accessible :name, :parent, :ancestry, :ancestry_depth, :parent_id
+  attr_accessible :name, :parent, :ancestry, :ancestry_depth, :parent_id, :come
   has_many :payments
   has_ancestry :cache_depth => true
   belongs_to :user

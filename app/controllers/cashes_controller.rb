@@ -21,11 +21,15 @@ class CashesController < ApplicationController
     
     @cash = Cash.find(params[:id])
     
-    if (@cash && params[:summa] != nil) then
+    log = Rails.logger
+    
+    if (@cash && params[:summa]!= nil && params[:summa]!="" ) then
 	payment = Payment.new;
-	payment.summa = params[:summa];
-	payment.category_id = params[:category_id];
+	payment.summa = params[:summa];	    
+    	payment.category_id = params[:category_id];
 	@cash.payments << payment
+	@cash.save
+	@cash.reload
     end
 
     respond_to do |format|
@@ -96,10 +100,70 @@ class CashesController < ApplicationController
     end
   end
 
+  def add_transfer
+  
+    ActiveRecord::Base.transaction do
+    
+  
+    @cash = Cash.find(params[:id])
+    
+    come_ = true    if params[:come]=='true'
+    come_ = false   if params[:come]=='false'
+    
+    transfer = Transfer.new(params[:transfer])
+    
+    transfer.cash = @cash
+    transfer.summa = params[:summa]
+    transfer.category = Category.where("name = ? and come = ?", 'Перевод', come_).first;
+    transfer.transfer_cash_id = params[:transfer_cash_id]
+    
+    if (come_ == false) then
+	transfer.summa = transfer.summa 
+    end
+    
+    transfer.save!
+    
+    @cash.reload
+    
+end
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.js
+      format.json { render json: @cash }
+    end
+  end
+  
+  def balance_edit
+  
+    @cash = Cash.find(params[:id])
+    
+    balance_delta = @cash.balance - params[:balance_edit].to_f
+    
+    if (balance_delta != 0) then
+    
+#        if (balance_delta < 0) then    	    
+#	end
+
+    ActiveRecord::Base.transaction do    
+        payment = Payment.new
+        payment.cash = @cash
+        payment.category = Category.find(:all, :conditions=>["name = ? and come = ?", 'Изменение остатка', (balance_delta < 0)]).first
+        payment.summa = balance_delta
+        
+        payment.save
+    end
+    end
+  
+    respond_to do |format|
+	format.js
+    end
+  end
+  
 before_filter :collection_for_parent_select, :except => [:show]
 
   def collection_for_parent_select
-    @categories = ancestry_options(Category.unscoped.arrange(:conditions => ["user_id = ?", current_user],:order => 'name')) {|i| "#{'-' * i.depth} #{i.name}" }
+    @categories = ancestry_options(Category.arrange(:conditions => ["user_id = ?", current_user],:order => 'name')) {|i| "#{'-' * i.depth} #{i.name}" }
   end
 
   def ancestry_options(items)

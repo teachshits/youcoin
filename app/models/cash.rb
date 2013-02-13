@@ -5,6 +5,14 @@ class Cash < ActiveRecord::Base
   has_many :payments, :dependent => :destroy
   belongs_to :user
   
+  belongs_to 	:transfers_out,
+		:class_name	=> "Transfer",
+		:foreign_key	=> "src_cash_id"
+		
+  belongs_to	:transfer_in,
+		:class_name	=> "Transfer",
+		:foreign_key	=> "dst_cash_id"
+  
   default_scope { where(:user_id => User.current_user.id) }
   
   HUMAN_ATTRIBUTE_NAMES = {
