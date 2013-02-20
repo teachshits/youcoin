@@ -8,13 +8,13 @@ extend ActiveSupport::Concern
 
 included do
 
-set_primary_key 'uuid'
+set_primary_key  'uuid'
 
 before_create :generate_uuid
 
 def generate_uuid
-
-self.id = UUIDTools::UUID.random_create.to_s
+    
+    self.id = UUIDTools::UUID.random_create.to_s
 
 end
 

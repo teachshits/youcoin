@@ -1,4 +1,16 @@
 #encoding: utf-8
+# == Schema Information
+#
+# Table name: cashes
+#
+#  uuid       :string(36)       primary key
+#  name       :string(255)      not null
+#  balance    :decimal(, )      not null
+#  user_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Cash < ActiveRecord::Base
   include Extensions::UUID
   attr_accessible :name, :payments, :payments_attributes, :balance
@@ -24,6 +36,17 @@ class Cash < ActiveRecord::Base
     def human_attribute_name attribute_name
 	HUMAN_ATTRIBUTE_NAMES[attribute_name.to_sym] || super
     end
+  end
+  
+  validates :name, :presence => true
+  
+  validates :balance, :presence => true
+  
+  
+  before_create :record_user
+  
+  def record_user
+    self.user = User.current_user
   end
 
 end

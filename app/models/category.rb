@@ -1,4 +1,18 @@
 #encoding: utf-8
+# == Schema Information
+#
+# Table name: categories
+#
+#  uuid           :string(36)       primary key
+#  name           :string(255)      not null
+#  ancestry       :string(255)
+#  ancestry_depth :integer          default(0)
+#  user_id        :integer
+#  come           :boolean          default(FALSE)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
 class Category < ActiveRecord::Base
   include Extensions::UUID
   attr_accessible :name, :parent, :ancestry, :ancestry_depth, :parent_id, :come

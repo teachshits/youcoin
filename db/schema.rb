@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130128013830) do
+ActiveRecord::Schema.define(:version => 20130214233245) do
 
   create_table "basecategories", :id => false, :force => true do |t|
     t.string   "uuid",           :limit => 36

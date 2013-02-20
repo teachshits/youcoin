@@ -5,6 +5,15 @@ Youcoin::Application.routes.draw do
 
   devise_for :users
 
+#  cancel_user_registration_path GET    /users/cancel(.:format)                  devise/registrations#cancel
+#  user_registration_path POST   /users(.:format)                        devise/registrations#create
+#  new_user_registration GET    /users/sign_up(.:format)                devise/registrations#new
+#  edit_user_registration_path GET    /users/edit(.:format)                   devise/registrations#edit
+
+  match '/signup',	:to => 'devise/registrations#new'
+  
+  
+
   resources :cashes
 
   resources :payments
@@ -21,11 +30,13 @@ Youcoin::Application.routes.draw do
   
   post "cashes/balance_edit"
   
+  
+  
   resources :cashes do
       member do
        post 'add_transfer'
       end
-end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
