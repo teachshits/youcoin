@@ -18,7 +18,7 @@ Youcoin::Application.routes.draw do
 
   root :to => 'home#index'
   
-  get "cashes/add_payment"
+  post "cashes/add_payment"
   
   post "cashes/add_transfer"
   

@@ -32,7 +32,8 @@ describe CashesController do
 	    it "should by successful" do
 		cash_a = Cash.create!(@attr_cash_a)
 		cash_b = Cash.create!(@attr_cash_b)
-		get 'add_transfer', :id=>cash_a, :transfer_cash_id=>cash_b, :summa=>12.54, :format=>'js'
+		post 'add_transfer', :id=>cash_a, :transfer_cash_id=>cash_b, :summa=>12.54, :format=>'js'
+		response.should be_success
 	    end
 	end
 	
@@ -44,7 +45,8 @@ describe CashesController do
 	    it "should by successful" do
 		cash = Cash.create!(@attr)
 		category = Category.find_by_name("Зарплата")
-		get 'add_payment', :id=>cash, :category_id=>category.id, :summa=>12.54, :format=>'js'
+		post 'add_payment', :id=>cash, :category_id=>category.id, :summa=>12.54, :format=>'js'
+		response.should be_success
 	    end
 	end
 	
@@ -56,7 +58,8 @@ describe CashesController do
 	    it "should by successful" do
 		cash = Cash.create!(@attr)
 		category = Category.find_by_name("Зарплата")
-		get 'change_balance', :id=>cash, :new_balance=>12.54, :format=>'js'
+		post 'change_balance', :id=>cash, :new_balance=>12.54, :format=>'js'
+		response.should be_success
 	    end
 	end
 
