@@ -48,5 +48,16 @@ describe CashesController do
 	    end
 	end
 	
+	describe "Change Balance" do
+	    before(:each) do
+		@attr = { :name => "Cash A", :balance => 1457.69}
+	    end
+	    
+	    it "should by successful" do
+		cash = Cash.create!(@attr)
+		category = Category.find_by_name("Зарплата")
+		get 'change_balance', :id=>cash, :new_balance=>12.54, :format=>'js'
+	    end
+	end
 
 end

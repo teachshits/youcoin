@@ -130,7 +130,7 @@ class CashesController < ApplicationController
     end
   end
   
-  def balance_edit
+  def change_balance
   
     @cash = Cash.find(params[:id])
     

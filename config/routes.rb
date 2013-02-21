@@ -2,13 +2,7 @@ Youcoin::Application.routes.draw do
 
   resources :tags
 
-
   devise_for :users
-
-#  cancel_user_registration_path GET    /users/cancel(.:format)                  devise/registrations#cancel
-#  user_registration_path POST   /users(.:format)                        devise/registrations#create
-#  new_user_registration GET    /users/sign_up(.:format)                devise/registrations#new
-#  edit_user_registration_path GET    /users/edit(.:format)                   devise/registrations#edit
 
   match '/signup',	:to => 'devise/registrations#new'
   
@@ -28,7 +22,7 @@ Youcoin::Application.routes.draw do
   
   post "cashes/add_transfer"
   
-  post "cashes/balance_edit"
+  post "cashes/change_balance"
   
   
   
