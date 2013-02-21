@@ -6,10 +6,10 @@ class ApplicationController < ActionController::Base
   end
   
   
-  before_filter :set_current_user
+  #before_filter :set_current_user
   
-  def set_current_user
-    User.current_user = current_user
-  end
+#B  def set_current_user
+#    User.current_user = current_user
+ # end
   
 end

@@ -1,4 +1,4 @@
-<%= form_tag @cash, :method => :get, :remote => true   do %>
+<%= form_tag( { :action => :add_payment }, :remote => true )  do %>
 
     Категория:
     <%= select_tag(:category_id,  options_for_select([""] + @categories), { "data-placeholder"=>'Выберите категорию ...',:class=>'chzn-select', "tabindex"=>'2'} )  %>

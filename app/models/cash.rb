@@ -39,9 +39,38 @@ class Cash < ActiveRecord::Base
   end
   
   validates :name, :presence => true
-  
   validates :balance, :presence => true
+  validates :user, :presence => true
+
+  def create_transfer(dst_cash, summa)
+     transfer = Transfer.new
+     transfer.cash = self
+     transfer.dst_cash = dst_cash
+     transfer.summa = summa.to_f 
+     transfer.category = Category.where("name = ? and come = ?", 'Перевод', false).first
+     transfer.save
+     
+     transfer = Transfer.new
+     transfer.cash = dst_cash
+     transfer.dst_cash = self
+     transfer.summa = summa.to_f
+     transfer.category = Category.where("name = ? and come = ?", 'Перевод', true).first
+     transfer.save
+  end
   
+  def change_balance(new_balance)
+	
+	return if self.balance == new_balance
+	
+	delta = self.balance - new_balance
+
+        payment = Payment.new
+        payment.cash = self
+        payment.category = Category.find(:all, :conditions=>["name = ? and come = ?", 'Изменение остатка', (delta < 0)]).first
+        payment.summa = delta
+        
+        payment.save
+  end
   
   before_create :record_user
   

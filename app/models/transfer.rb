@@ -30,38 +30,25 @@ class Transfer < Payment
 	"#{self.category.name} со счёта #{self.dst_cash.name}"
     end
   end		
+    
+#  after_save :create_transfer
   
-  after_save :create_transfer
+#  private
   
-  private
+#  def create_transfer
   
-  def create_transfer
+#    log = Rails.logger
+#    log.debug("create_trancsfer")
   
-    log = Rails.logger
-    log.debug("create_trancsfer")
-  
-    transfer = Transfer.new
-    transfer.cash = self.dst_cash
-    transfer.dst_cash = self.cash
-    transfer.summa = self.summa.to_i * (-1)
-    transfer.category = Category.where("name = ? and come = ?", 'Перевод', !(self.category.come)).first
+#    transfer = Transfer.new
+#    transfer.cash = self.dst_cash
+#    transfer.dst_cash = self.cash
+#    transfer.summa = self.summa.to_i * (-1)
+#    transfer.category = Category.where("name = ? and come = ?", 'Перевод', !(self.category.come)).first
 
-    Transfer.skip_callback(:save, :after, :create_transfer)    
-    transfer.save
-    Transfer.set_callback(:save, :after, :create_transfer)
-#    Transfer.skip_callback(:after)
-#     transfer.send(:create_without_callbacks)
-#    Transfer.set_callback(:after)
-  
-#    cash_src = Cash.find(transfer.transfer_cash_id)
-#    transfer_src = Transfer.new
-#    transfer_src.transfer_cash_id = @cash
-#    transfer_src.category = Category.where("name = ? and come = ?", 'Перевод', !come_).first
-#    transfer_src.cash = cash_src
-#    transfer_src.summa = params[:summa].to_i * (-1)
-#    transfer_src.save!
-
-  
-  end
+#    Transfer.skip_callback(:save, :after, :create_transfer)    
+#    transfer.save
+#    Transfer.set_callback(:save, :after, :create_transfer)
+#  end
 		
 end

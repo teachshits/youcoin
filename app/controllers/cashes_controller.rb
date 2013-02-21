@@ -17,26 +17,15 @@ class CashesController < ApplicationController
   # GET /cashes/1
   # GET /cashes/1.json
   def show
-    collection_for_parent_select;
-    
+
     @cash = Cash.find(params[:id])
-    
-    log = Rails.logger
-    
-    if (@cash && params[:summa]!= nil && params[:summa]!="" ) then
-	payment = Payment.new;
-	payment.summa = params[:summa];	    
-    	payment.category_id = params[:category_id];
-	@cash.payments << payment
-	@cash.save
-	@cash.reload
-    end
 
     respond_to do |format|
       format.html # show.html.erb
       format.js
       format.json { render json: @cash }
     end
+    
   end
 
   # GET /cashes/new
@@ -101,31 +90,38 @@ class CashesController < ApplicationController
   end
 
   def add_transfer
-  
     ActiveRecord::Base.transaction do
-    
+	@cash = Cash.find(params[:id])
+        dst_cash = Cash.find(params[:transfer_cash_id])
+	summa = params[:summa]
+        @cash.create_transfer(dst_cash, summa)
+        @cash.reload
+    end
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.js
+      format.json { render json: @cash }
+    end
+  end
   
+  def add_payment
+
+    collection_for_parent_select;
+    
     @cash = Cash.find(params[:id])
     
-    come_ = true    if params[:come]=='true'
-    come_ = false   if params[:come]=='false'
-    
-    transfer = Transfer.new(params[:transfer])
-    
-    transfer.cash = @cash
-    transfer.summa = params[:summa]
-    transfer.category = Category.where("name = ? and come = ?", 'Перевод', come_).first;
-    transfer.transfer_cash_id = params[:transfer_cash_id]
-    
-    if (come_ == false) then
-	transfer.summa = transfer.summa 
+    if (@cash && params[:summa]!= nil && params[:summa]!="" ) then
+	ActiveRecord::Base.transaction do
+	    payment = Payment.new;
+	    payment.summa = params[:summa];
+    	    payment.category_id = params[:category_id];
+	    @cash.payments << payment
+	    @cash.save
+	    @cash.reload
+	end
     end
     
-    transfer.save!
-    
-    @cash.reload
-    
-end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -138,23 +134,8 @@ end
   
     @cash = Cash.find(params[:id])
     
-    balance_delta = @cash.balance - params[:balance_edit].to_f
-    
-    if (balance_delta != 0) then
-    
-#        if (balance_delta < 0) then    	    
-#	end
-
-    ActiveRecord::Base.transaction do    
-        payment = Payment.new
-        payment.cash = @cash
-        payment.category = Category.find(:all, :conditions=>["name = ? and come = ?", 'Изменение остатка', (balance_delta < 0)]).first
-        payment.summa = balance_delta
-        
-        payment.save
-    end
-    end
-  
+    @cash.change_balance(params[:new_balance].to_f)
+      
     respond_to do |format|
 	format.js
     end
