@@ -18,6 +18,8 @@ class CashesController < ApplicationController
   # GET /cashes/1.json
   def show
 
+    collection_for_parent_select;
+
     @cash = Cash.find(params[:id])
 
     respond_to do |format|
@@ -106,8 +108,6 @@ class CashesController < ApplicationController
   end
   
   def add_payment
-
-    collection_for_parent_select;
     
     @cash = Cash.find(params[:id])
     
