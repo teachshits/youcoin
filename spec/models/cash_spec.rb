@@ -46,6 +46,14 @@ describe Cash do
 	    cash.payments.first.summa.should == (1457.69-400)
 	end
 	
+	it "shoild change balance if balance < 0" do
+	    cash = Cash.create!(@attr)
+	    cash.balance = -1254
+	    cash.save
+	    cash.change_balance(10)
+	    cash.balance.should == 10
+	end
+	
     end
 
 end

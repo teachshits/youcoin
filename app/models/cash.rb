@@ -67,7 +67,12 @@ class Cash < ActiveRecord::Base
         payment = Payment.new
         payment.cash = self
         payment.category = Category.find(:all, :conditions=>["name = ? and come = ?", 'Изменение остатка', (delta < 0)]).first
-        payment.summa = delta
+        if (delta < 0) then
+    	    payment.summa = -delta
+        else
+            payment.summa = delta
+        end
+        
         
         payment.save
   end
