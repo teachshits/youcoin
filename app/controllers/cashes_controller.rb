@@ -92,18 +92,23 @@ class CashesController < ApplicationController
   end
 
   def add_transfer
-    ActiveRecord::Base.transaction do
-	@cash = Cash.find(params[:id])
-        dst_cash = Cash.find(params[:transfer_cash_id])
-	summa = params[:summa]
-        @cash.create_transfer(dst_cash, summa)
-        @cash.reload
+    if (params[:come] == false) then
+        src_cash = Cash.find(params[:id])
+	dst_cash = Cash.find(params[:transfer_cash_id])
+    else
+	dst_cash = Cash.find(params[:id])
+	src_cash = Cash.find(params[:transfer_cash_id])
     end
+    ActiveRecord::Base.transaction do
+	summa = params[:summa]
+        src_cash.create_transfer(dst_cash, summa)
+        src_cash.reload
+    end
+    
+    @cash = Cash.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
       format.js
-      format.json { render json: @cash }
     end
   end
   
@@ -121,7 +126,6 @@ class CashesController < ApplicationController
 	    @cash.reload
 	end
     end
-    
 
     respond_to do |format|
       format.html # show.html.erb

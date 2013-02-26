@@ -31,6 +31,8 @@ describe Cash do
 	    cash_a.balance.should == @attr_cash_a[:balance] - transfer
 	    cash_b.balance.should == @attr_cash_b[:balance] + transfer
 	end
+	
+	
     end
     
     describe 'Balance' do
