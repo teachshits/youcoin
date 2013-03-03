@@ -2,6 +2,7 @@
 </br>
 <table>
     <tr>
+	<th>Дата</th>
 	<th>Категория</th>
 	<th>Расход</th>
 	<th>Доход</th>
@@ -9,9 +10,10 @@
     
 <% @cash.payments.each do |payment| %>
 <tr>
+    <td><%= payment.created_at.to_date.to_s %></td>
     <td><%= payment.name%></td>
-    <td><%= number_with_precision(payment.summa, :precision => 2)      if payment.summa > 0 %>  </td>
-    <td><%= number_with_precision(payment.summa*(-1), :precision => 2) if payment.summa < 0 %>  </td>
+    <td><%= number_with_precision(payment.summa, :precision => 2)      if payment.category.come == false %>  </td>
+    <td><%= number_with_precision(payment.summa, :precision => 2) if payment.category.come == true %>  </td>
 </tr>
 <% end %>
 </table>

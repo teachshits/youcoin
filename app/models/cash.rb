@@ -41,6 +41,10 @@ class Cash < ActiveRecord::Base
   validates :name, :presence => true
   validates :balance, :presence => true
   validates :user, :presence => true
+  
+  def name_cash
+    "#{self.name} (#{self.balance})"
+  end
 
   def create_transfer(dst_cash, summa)
      transfer = Transfer.new

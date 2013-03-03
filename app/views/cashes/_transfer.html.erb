@@ -6,7 +6,7 @@
 <%= radio_button_tag :come, :false  %> <%= label_tag :come, 'Положить средства на счёт:', :value => :false %>
 
 
-<%= select_tag(:transfer_cash_id, options_for_select([""] + Cash.all.collect {|a| [a.name, a.id]}), { "data-placeholder"=>'Укажите счёт:',:class=>'chzn-select', "tabindex"=>'2'} )  %>
+<%= select_tag(:transfer_cash_id, options_for_select([""] + Cash.all.collect {|a| [a.name_cash, a.id]}), { "data-placeholder"=>'Укажите счёт:',:class=>'chzn-select', "tabindex"=>'2'} )  %>
     Сумма:
     <%= text_field_tag :summa, (number_with_precision(0, :precision => 2) || 0) %>
 

@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(:version => 20130214233245) do
 
   create_table "payments", :id => false, :force => true do |t|
     t.decimal  "summa",                          :precision => 11, :scale => 2, :null => false
+    t.integer  "amount"
+    t.decimal  "price",                          :precision => 11, :scale => 2
     t.string   "uuid",             :limit => 36
     t.string   "category_id",                                                   :null => false
     t.string   "cash_id",                                                       :null => false

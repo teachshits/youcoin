@@ -44,6 +44,12 @@ describe CashesController do
 		cash_a.reload
 		cash_b.balance.should == (@attr_cash_b[:balance] + 14.21)
 		cash_a.balance.should == (@attr_cash_a[:balance] - 14.21)
+		
+		transfer_a = cash_a.payments.first
+		transfer_b = cash_b.payments.first
+		
+		transfer_a.category.come.should == false
+		transfer_b.category.come.should == true
 	    end
 	
 	    it "should by transfer from cash" do
@@ -54,6 +60,12 @@ describe CashesController do
 		cash_a.reload
 		cash_b.balance.should == (@attr_cash_b[:balance] - 14.21)
 		cash_a.balance.should == (@attr_cash_a[:balance] + 14.21)
+		
+		transfer_a = cash_a.payments.first
+		transfer_b = cash_b.payments.first
+		
+		transfer_a.category.come.should == true
+		transfer_b.category.come.should == false
 	    end
 	
 	end

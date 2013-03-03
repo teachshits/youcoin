@@ -92,7 +92,14 @@ class CashesController < ApplicationController
   end
 
   def add_transfer
-    if (params[:come] == false) then
+  
+    if (params[:come] != "false" && params[:come] != "true") then
+	flash[:notice] = "Неверный параметр при создании перевода"
+	redirect_to :action => :index
+	return
+    end
+  
+    if (params[:come] == "false") then
         src_cash = Cash.find(params[:id])
 	dst_cash = Cash.find(params[:transfer_cash_id])
     else
@@ -102,6 +109,7 @@ class CashesController < ApplicationController
     ActiveRecord::Base.transaction do
 	summa = params[:summa]
         src_cash.create_transfer(dst_cash, summa)
+        src_cash.save
         src_cash.reload
     end
     

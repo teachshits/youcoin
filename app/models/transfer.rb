@@ -25,30 +25,10 @@ class Transfer < Payment
 
   def name
     if self.category.come == false then
-        "#{self.category.name} на счёт #{self.dst_cash.name}"
+        "#{self.category.name} на счёт '#{self.dst_cash.name}'"
     else
-	"#{self.category.name} со счёта #{self.dst_cash.name}"
+	"#{self.category.name} со счёта '#{self.dst_cash.name}'"
     end
   end		
     
-#  after_save :create_transfer
-  
-#  private
-  
-#  def create_transfer
-  
-#    log = Rails.logger
-#    log.debug("create_trancsfer")
-  
-#    transfer = Transfer.new
-#    transfer.cash = self.dst_cash
-#    transfer.dst_cash = self.cash
-#    transfer.summa = self.summa.to_i * (-1)
-#    transfer.category = Category.where("name = ? and come = ?", 'Перевод', !(self.category.come)).first
-
-#    Transfer.skip_callback(:save, :after, :create_transfer)    
-#    transfer.save
-#    Transfer.set_callback(:save, :after, :create_transfer)
-#  end
-		
 end

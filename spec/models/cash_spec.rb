@@ -32,6 +32,18 @@ describe Cash do
 	    cash_b.balance.should == @attr_cash_b[:balance] + transfer
 	end
 	
+	it "should be transfer for come" do
+	    cash_a = Cash.create!(@attr_cash_a)
+	    cash_b = Cash.create!(@attr_cash_b)
+	    summa = 12.87
+	    cash_a.create_transfer(cash_b, summa)
+	    
+	    transfer_a = cash_a.payments.first;
+	    transfer_b = cash_b.payments.first;
+	    
+	    transfer_a.category.come.should == false
+	    transfer_b.category.come.should == true
+	end
 	
     end
     
