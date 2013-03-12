@@ -1,7 +1,7 @@
 <%= form_tag( { :action => :add_payment, :id => @cash }, :remote => true )  do %>
 
     Категория:
-    <%= select_tag(:category_id,  options_for_select([""] + @categories), { "data-placeholder"=>'Выберите категорию ...',:class=>'chzn-select', "tabindex"=>'2'} )  %>
+    <%= select_tag(:category_id,  options_for_select(@categories))  %>
     Сумма:
     <%= text_field_tag :summa, (number_with_precision(0, :precision => 2) || 0) %>
     Количество:
